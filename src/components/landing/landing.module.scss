@@ -1,5 +1,18 @@
 .landing {
   width: 800px;
   height: 400px;
-  background-color: black;
+  border: 1px solid black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.form {
+  width: 80%;
+  height: 50%;
+  border: solid 1px black;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }

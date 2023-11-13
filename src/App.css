@@ -16,3 +16,8 @@
   flex-direction: column;
   align-items: center;
 }
+
+@font-face {
+  font-family: 'Prata';
+  src: url('./fonts/Prata-Regular.ttf');
+}

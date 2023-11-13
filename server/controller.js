@@ -1,5 +1,7 @@
-module.exports = {
-  test: async (req, res) => {
-    console.log(req);
-  },
-};
+class Controller {
+  static index(req, res) {
+    res.send('test');
+  }
+}
+
+module.exports = Controller;

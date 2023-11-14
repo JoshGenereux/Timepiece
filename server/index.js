@@ -4,7 +4,6 @@ const cors = require('cors');
 const app = express();
 const path = require('path');
 const ctrl = require('./controller');
-const routes = require('./routes');
 const { default: axios } = require('axios');
 const PORT = process.env.SERVER_PORT || 3001;
 

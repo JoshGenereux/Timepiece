@@ -2,6 +2,8 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { addBrand } from '../../redux/watchBrandsSlice';
+import Header from '../header/Header';
+import styles from './home.module.scss';
 
 const URL = 'http://localhost:5432';
 
@@ -28,9 +30,8 @@ const Home = () => {
   };
 
   return (
-    <div>
-      <div></div>
-      <button onClick={search}>Search</button>
+    <div className={styles.home}>
+      <Header />
     </div>
   );
 };

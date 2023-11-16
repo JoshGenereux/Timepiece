@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import styles from './header.module.scss';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import { library } from '@fortawesome/fontawesome-svg-core';
+import { storeBrand } from '../../redux/brandSlice';
 
 library.add(faMagnifyingGlass);
 
@@ -11,6 +12,8 @@ const Header = () => {
   const allWatchBrands = useSelector((state) => state.watchBrands.brands);
   const [search, setSearch] = useState('');
   const [currentSearch, setCurrentSearch] = useState([]);
+  const currentBrand = useSelector((state) => state.brand.name);
+  const dispatch = useDispatch();
 
   const handleInput = (e) => {
     setSearch(e.target.value);
@@ -27,20 +30,28 @@ const Header = () => {
 
   const handleSearch = (e) => {
     e.preventDefault();
-    console.log(search);
-    // setSearch('');
-    // setCurrentSearch([]);
+    const searchedName = search;
+    if (searchedName && currentSearch.length === 1) {
+      dispatch(storeBrand(currentSearch));
+      setCurrentSearch([]);
+      setSearch('');
+    } else {
+      console.log('nope');
+    }
   };
 
   const clickDropDown = (e) => {
     e.preventDefault();
+    const clicked = e.target.innerText;
+    const findClicked = allWatchBrands.filter((watch) => {
+      return clicked.match(watch.name);
+    });
+    dispatch(storeBrand(findClicked));
     setSearch('');
     setCurrentSearch([]);
   };
 
-  useEffect(() => {
-    console.log('inside useEffect');
-  }, [search, currentSearch, allWatchBrands]);
+  useEffect(() => {}, [search, currentSearch, allWatchBrands, currentBrand]);
 
   return (
     <div className={styles.header}>

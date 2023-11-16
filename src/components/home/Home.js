@@ -10,6 +10,7 @@ const URL = 'http://localhost:5432';
 const Home = () => {
   const dispatch = useDispatch();
   const brands = useSelector((state) => state.watchBrands.brands);
+  const currentBrand = useSelector((state) => state.brand.name);
 
   useEffect(() => {
     const fetchWatches = async () => {
@@ -23,11 +24,12 @@ const Home = () => {
       }
     };
     fetchWatches();
+    console.log(currentBrand);
   }, []);
 
-  const search = () => {
-    console.log(brands);
-  };
+  useEffect(() => {
+    console.log(currentBrand);
+  }, [brands, currentBrand]);
 
   return (
     <div className={styles.home}>

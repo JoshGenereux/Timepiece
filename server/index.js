@@ -22,6 +22,17 @@ app.get('/api/all', async (req, res) => {
   }
 });
 
+app.post(`/api/brand`, async (req, res) => {
+  try {
+    console.log(req.data);
+    const url = `https://api.watchbase.com/v1/families?brand-id=37&format=json&key=${key}`;
+    const response = await axios.get(url);
+    res.json(response.data);
+  } catch (error) {
+    console.log(error);
+  }
+});
+
 app.get('/api/search', async (req, res) => {
   try {
     const url = `https://api.watchbase.com/v1/watch?id=17289&format=json&key=${key}`;

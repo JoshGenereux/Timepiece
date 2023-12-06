@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { addBrand } from '../../redux/watchBrandsSlice';
 import Header from '../header/Header';
 import styles from './home.module.scss';
+import Watch from '../watch/Watch';
 
 const URL = 'http://localhost:5432';
 
@@ -24,16 +25,16 @@ const Home = () => {
       }
     };
     fetchWatches();
-    console.log(currentBrand);
   }, []);
 
   useEffect(() => {
-    console.log(currentBrand);
+    // console.log(currentBrand);
   }, [brands, currentBrand]);
 
   return (
     <div className={styles.home}>
       <Header />
+      <Watch />
     </div>
   );
 };

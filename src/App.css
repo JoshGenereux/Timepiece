@@ -21,3 +21,8 @@
   font-family: 'Prata';
   src: url('./fonts/Prata-Regular.ttf');
 }
+
+@font-face {
+  font-family: 'Satisfy';
+  src: url('./fonts/Satisfy-Regular.ttf');
+}

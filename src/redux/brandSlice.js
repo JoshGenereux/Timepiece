@@ -15,5 +15,5 @@ const brandSlice = createSlice({
   },
 });
 
-export const { storeBrand, clearStoredBrand } = brandSlice.actions;
+export const { storeBrand, clearBrand } = brandSlice.actions;
 export default brandSlice.reducer;

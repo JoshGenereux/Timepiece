@@ -10,8 +10,6 @@ const Watch = () => {
   const [loading, setLoading] = useState(true);
   const [brand, setBrand] = useState([]);
   const [brandName, setBrandName] = useState('');
-  // const brand = currentBrand[0].name;
-  // console.log(currentBrand[0].name);
 
   useEffect(() => {
     const getName = async () => {
@@ -19,8 +17,6 @@ const Watch = () => {
         const getBrand = await currentBrand;
         setBrand(getBrand);
         setBrandName(brand[0].name);
-        // console.log(brand);
-        // console.log(brandName);
       } catch (error) {
         console.log(error);
       } finally {

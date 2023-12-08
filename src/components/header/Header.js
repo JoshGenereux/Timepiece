@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import { library } from '@fortawesome/fontawesome-svg-core';
-import { storeBrand, storeBrandID } from '../../redux/brandSlice';
+import { storeBrand, clearBrand } from '../../redux/brandSlice';
 import axios from 'axios';
 
 const URL = 'http://localhost:5432';
@@ -19,7 +19,7 @@ const Header = () => {
 
   const getBrand = async (brandID) => {
     try {
-      const response = await axios.post(`${URL}/api/brand`, 37);
+      const response = await axios.post(`${URL}/api/brand`, brandID);
       console.log(response.data);
     } catch (error) {
       console.log(error);
@@ -40,14 +40,12 @@ const Header = () => {
 
   const handleSearch = (e) => {
     e.preventDefault();
-    const searchedName = search;
-    if (searchedName && currentSearch.length === 1) {
+    if (search && currentSearch.length === 1) {
       dispatch(storeBrand(currentSearch));
-      const brandID = currentBrand[0].id;
-      console.log(brandID);
-      getBrand();
+      getBrand(currentBrand);
       setCurrentSearch([]);
       setSearch('');
+      dispatch(clearBrand());
     } else {
       console.log('nope');
     }
@@ -60,9 +58,10 @@ const Header = () => {
       return clicked.match(watch.name);
     });
     dispatch(storeBrand(findClicked));
-    getBrand();
+    getBrand(currentBrand);
     setSearch('');
     setCurrentSearch([]);
+    dispatch(clearBrand());
   };
 
   useEffect(() => {}, [search, currentSearch, allWatchBrands, currentBrand]);

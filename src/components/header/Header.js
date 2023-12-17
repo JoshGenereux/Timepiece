@@ -6,6 +6,7 @@ import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { storeBrand } from '../../redux/brandSlice';
 import axios from 'axios';
+import { addFamily } from '../../redux/familySlice';
 
 const URL = 'http://localhost:5432';
 library.add(faMagnifyingGlass);
@@ -14,14 +15,19 @@ const Header = () => {
   const allWatchBrands = useSelector((state) => state.watchBrands.brands);
   const [search, setSearch] = useState('');
   const [currentSearch, setCurrentSearch] = useState([]);
-  const currentBrand = useSelector((state) => state.brand.name);
   const dispatch = useDispatch();
 
   const getBrand = async (brandID) => {
     try {
       const id = await brandID;
       const response = await axios.post(`${URL}/api/brand`, id);
-      console.log(response.data);
+      await dispatch(
+        addFamily(
+          response.data.families.map((fam) => {
+            return fam.id;
+          })
+        )
+      );
     } catch (error) {
       console.log(error);
     }

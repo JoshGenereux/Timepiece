@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import { library } from '@fortawesome/fontawesome-svg-core';
-import { storeBrand, clearBrand } from '../../redux/brandSlice';
+import { storeBrand } from '../../redux/brandSlice';
 import axios from 'axios';
 
 const URL = 'http://localhost:5432';
@@ -19,7 +19,8 @@ const Header = () => {
 
   const getBrand = async (brandID) => {
     try {
-      const response = await axios.post(`${URL}/api/brand`, brandID);
+      const id = await brandID;
+      const response = await axios.post(`${URL}/api/brand`, id);
       console.log(response.data);
     } catch (error) {
       console.log(error);
@@ -27,6 +28,7 @@ const Header = () => {
   };
 
   const handleInput = (e) => {
+    e.preventDefault();
     setSearch(e.target.value);
     const searchArr = [];
     searchArr.push(search.toLowerCase());
@@ -38,33 +40,29 @@ const Header = () => {
     setCurrentSearch(match);
   };
 
-  const handleSearch = (e) => {
+  const handleSearch = async (e) => {
     e.preventDefault();
     if (search && currentSearch.length === 1) {
-      dispatch(storeBrand(currentSearch));
-      getBrand(currentBrand);
+      await dispatch(storeBrand(currentSearch));
+      getBrand(currentSearch);
       setCurrentSearch([]);
       setSearch('');
-      dispatch(clearBrand());
     } else {
       console.log('nope');
     }
   };
 
-  const clickDropDown = (e) => {
+  const clickDropDown = async (e) => {
     e.preventDefault();
     const clicked = e.target.innerText;
     const findClicked = allWatchBrands.filter((watch) => {
       return clicked.match(watch.name);
     });
-    dispatch(storeBrand(findClicked));
-    getBrand(currentBrand);
+    await dispatch(storeBrand(findClicked));
+    getBrand(findClicked);
     setSearch('');
     setCurrentSearch([]);
-    dispatch(clearBrand());
   };
-
-  useEffect(() => {}, [search, currentSearch, allWatchBrands, currentBrand]);
 
   return (
     <div className={styles.header}>

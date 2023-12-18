@@ -44,9 +44,13 @@ app.get('/api/search', async (req, res) => {
   }
 });
 
-app.get('/api/watches', async (req, res) => {
+app.post('/api/watches', async (req, res) => {
   try {
-    // const url =
+    const id = req.body[0].id;
+    console.log(id);
+    const url = `${URL}watches?brand-id=${id}&format=json&key=${key}`;
+    const response = await axios.get(url);
+    res.json(response.data);
   } catch (error) {
     console.log(error);
   }

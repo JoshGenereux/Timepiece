@@ -11,7 +11,7 @@ const Watch = () => {
   const [brand, setBrand] = useState([]);
   const [brandName, setBrandName] = useState('');
   const brandFamiles = useSelector((state) => state.brandFamilies.families);
-  console.log(brandFamiles);
+  // console.log(brandFamiles);
 
   useEffect(() => {
     const getName = async () => {

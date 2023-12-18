@@ -17,6 +17,15 @@ const Header = () => {
   const [currentSearch, setCurrentSearch] = useState([]);
   const dispatch = useDispatch();
 
+  const getAllFromBrand = async (ID) => {
+    try {
+      const res = await axios.post(`${URL}/api/watches`, ID);
+      console.log(res);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const getBrand = async (brandID) => {
     try {
       const id = await brandID;
@@ -51,6 +60,7 @@ const Header = () => {
     if (search && currentSearch.length === 1) {
       await dispatch(storeBrand(currentSearch));
       getBrand(currentSearch);
+      getAllFromBrand(currentSearch);
       setCurrentSearch([]);
       setSearch('');
     } else {
@@ -66,6 +76,7 @@ const Header = () => {
     });
     await dispatch(storeBrand(findClicked));
     getBrand(findClicked);
+    getAllFromBrand(findClicked);
     setSearch('');
     setCurrentSearch([]);
   };

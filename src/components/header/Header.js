@@ -20,7 +20,7 @@ const Header = () => {
   const getAllFromBrand = async (ID) => {
     try {
       const res = await axios.post(`${URL}/api/watches`, ID);
-      console.log(res);
+      console.log(res.data);
     } catch (error) {
       console.log(error);
     }

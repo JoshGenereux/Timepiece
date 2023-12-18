@@ -46,10 +46,10 @@ app.get('/api/search', async (req, res) => {
 
 app.post('/api/watches', async (req, res) => {
   try {
-    const id = req.body[0].id;
+    const id = req?.body?.[0]?.id;
     console.log(id);
-    const url = `${URL}watches?brand-id=${id}&format=json&key=${key}`;
-    const response = await axios.get(url);
+    const url = `${URL}watches?brand-id=150&format=json&key=${key}`;
+    const response = await axios.post(url);
     res.json(response.data);
   } catch (error) {
     console.log(error);
